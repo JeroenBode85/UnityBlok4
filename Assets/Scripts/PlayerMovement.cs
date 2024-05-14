@@ -39,10 +39,12 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region InputSystemChristiaan
-    //private void OnMove(InputValue value)
-    //{        
-    //    movementInput = value.Get<Vector2>();
-    //}
+    //InputValue is een script dat automatisch met UnityEngine.InputSystem geleverd wordt, deze checkt of de speler input geeft volgens jouw instellingen in de New Input System.
+    //Hiervoor moet je wel het "Player Input" component op je player hebben staan, een input action hebben toegewezen en de juiste Map geselecteerd hebben
+    private void OnMove(InputValue value)
+    {
+        movementInput = value.Get<Vector2>();
+    }
     #endregion
     #region InputSystemSuze1
     //private void Start()
@@ -72,45 +74,45 @@ public class PlayerMovement : MonoBehaviour
     //}
     #endregion
     #region InputSystemSuze2
-    private void Awake()
-    {
-        //Om het script te initialiseren
-        playerInputActions = new Player();
-        rb = GetComponent<Rigidbody>();
-    }
+    //private void Awake()
+    //{
+    //    //Om het script te initialiseren
+    //    playerInputActions = new Player();
+    //    rb = GetComponent<Rigidbody>();
+    //}
 
-    //Zodat de speler de Inputsystem alleen gebruikt wanneer het GameObject enabled is
-    private void OnEnable()
-    {
-        move = playerInputActions.PlayerControls.Move;
-        move.Enable();
-        rotate = playerInputActions.PlayerControls.Rotate;
-        rotate.Enable();
-        shoot = playerInputActions.PlayerControls.Shoot;
-        shoot.Enable();
-    }
+    ////Zodat de speler de Inputsystem alleen gebruikt wanneer het GameObject enabled is
+    //private void OnEnable()
+    //{
+    //    move = playerInputActions.PlayerControls.Move;
+    //    move.Enable();
+    //    rotate = playerInputActions.PlayerControls.Rotate;
+    //    rotate.Enable();
+    //    shoot = playerInputActions.PlayerControls.Shoot;
+    //    shoot.Enable();
+    //}
 
-    private void OnDisable()
-    {
-        move.Disable();
-        rotate.Disable();
-        shoot.Disable();
-    }
+    //private void OnDisable()
+    //{
+    //    move.Disable();
+    //    rotate.Disable();
+    //    shoot.Disable();
+    //}
 
     //Gebruik Update voor het meten van input en render vraagstukken
-    private void Update()
-    {
-        movementInputV3 = move.ReadValue<Vector3>();
-        rotation = rotate.ReadValue<float>();
-    }
+    //private void Update()
+    //{
+    //    movementInputV3 = move.ReadValue<Vector3>();
+    //    rotation = rotate.ReadValue<float>();
+    //}
 
-    //Gebruik FixedUpdate voor berekeningen
-    private void FixedUpdate()
-    {
-        transform.position += transform.forward * movementInputV3.z * Time.deltaTime * speed;
+    ////Gebruik FixedUpdate voor berekeningen
+    //private void FixedUpdate()
+    //{
+    //    transform.position += transform.forward * movementInputV3.z * Time.deltaTime * speed;
 
-        transform.Rotate(Vector3.up * Time.deltaTime * rotationalSpeed * rotation);
-    }
+    //    transform.Rotate(Vector3.up * Time.deltaTime * rotationalSpeed * rotation);
+    //}
     #endregion
 
     private void OnAim(InputValue value)
@@ -130,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #region InputSystemChristiaan
-    /*
+    ///*
     private void Update()
     {
         var movement = new Vector3(movementInput.x, 0, movementInput.y);
@@ -148,11 +150,12 @@ public class PlayerMovement : MonoBehaviour
         //GetKey in nieuwe input system
 
         // Draai de head alleen als er geen beweging is
-        if (movement.magnitude == 0)
-        {
-            head.transform.Rotate(0, turningDirection, 0);
-        }
+        //Niet van toepassing voor de 2 blokjes
+        //if (movement.magnitude == 0)
+        //{
+        //    head.transform.Rotate(0, turningDirection, 0);
+        //}
     }
-    */
+    //*/
     #endregion
 }
