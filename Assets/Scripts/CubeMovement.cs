@@ -27,7 +27,7 @@ public class CubeMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        move = playerInputActions.PlayerControls.Move;
+        move = playerInputActions.PlayerControls.Movement;
         move.Enable();
         rotate = playerInputActions.PlayerControls.Rotate;
         rotate.Enable();
@@ -54,6 +54,7 @@ public class CubeMovement : MonoBehaviour
         if (isRB)
         {
             rb.velocity = speed * movementInput;
+            //transform.Rotate(new Vector3(0, transform.localPosition.y, 0) * Time.deltaTime * rotationalSpeed * rotation);
         }
         else
         {

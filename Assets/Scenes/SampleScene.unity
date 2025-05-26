@@ -554,7 +554,6 @@ GameObject:
   - component: {fileID: 736352150}
   - component: {fileID: 736352147}
   - component: {fileID: 736352152}
-  - component: {fileID: 736352153}
   - component: {fileID: 736352154}
   - component: {fileID: 736352155}
   - component: {fileID: 736352156}
@@ -580,34 +579,9 @@ MonoBehaviour:
   movingForward: 1
   speed: 3
   head: {fileID: 511341506}
-  playerMovement:
-    m_Name: Player Movement
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 03c5160e-a6eb-49ce-8330-bf5bb0685c82
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  playerRotation:
-    m_Name: Player Rotation
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: cd4f393d-5cdc-430c-90e0-c3705e284621
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  playerShoot:
-    m_Name: Player Shoot
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ba392163-467d-4dc9-babb-73828644f726
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  rotationalSpeed: 0
+  rotationalSpeed: 20
+  item: {fileID: 4459513304196709030, guid: 5f36ae34753bcd04aa3bdd5af6ba3491, type: 3}
+  spawnPoint: {fileID: 1198159115}
 --- !u!33 &736352150
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -640,28 +614,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736352146}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb8fd4f06ba869540ab225974069c4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
---- !u!114 &736352153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736352146}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496ad260fb2fa6e46a4b355ef6497efd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  rayLength: 10
 --- !u!114 &736352154
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShootProjectile : MonoBehaviour
 {
+    [Header("Dit script wordt direct vanuit je New Input System Map aangeroepen")]
+
     [SerializeField]
     private GameObject item;
     [SerializeField]
@@ -13,7 +15,12 @@ public class ShootProjectile : MonoBehaviour
     void OnShoot()
     {
         Debug.Log("test");
-        var throwable = Instantiate(item,spawnPoint.position,Quaternion.identity);
-        throwable.GetComponent<Rigidbody>().velocity = spawnPoint.transform.forward*5;
+        var throwable = Instantiate(item, spawnPoint.position, Quaternion.identity);
+        throwable.GetComponent<Rigidbody>().velocity = spawnPoint.transform.forward * 5;
+    }
+
+    void OnTest()
+    {
+        Debug.Log("Hallo");
     }
 }

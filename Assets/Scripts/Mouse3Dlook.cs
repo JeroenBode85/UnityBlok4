@@ -23,6 +23,10 @@ public class Mouse3Dlook : MonoBehaviour
                 // Richt de speler naar de muis
                 Quaternion rotation = Quaternion.LookRotation(lookDirection);
                 transform.rotation = rotation;
+
+
+                //var step = 5f*Time.deltaTime;
+                //transform.position = Vector3.MoveTowards(transform.position, raycastHit.point.normalized, step);
             }
         }
     }
