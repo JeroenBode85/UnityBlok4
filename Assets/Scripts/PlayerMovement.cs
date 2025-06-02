@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     {
         movementInputV3 = playerInputActions.PlayerControls.Movement.ReadValue<Vector3>();
         rotation = playerInputActions.PlayerControls.Rotate.ReadValue<float>();
-        shoot = playerInputActions.PlayerControls.Shoot1.ReadValue<float>();
+        shoot = playerInputActions.PlayerControls.Shoot.ReadValue<float>();
     }
 
     //Gebruik FixedUpdate voor berekeningen

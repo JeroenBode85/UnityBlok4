@@ -46,15 +46,6 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Shoot1"",
-                    ""type"": ""Value"",
-                    ""id"": ""b8b0bc6b-7628-45d1-8add-d2e056bd85dd"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Aim"",
                     ""type"": ""Value"",
                     ""id"": ""997ab644-8298-41f2-b84f-9aab0a8c825c"",
@@ -91,9 +82,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Test"",
+                    ""name"": ""Switch"",
                     ""type"": ""Button"",
-                    ""id"": ""b46317d0-82be-4ddf-9add-9f0427a39ac4"",
+                    ""id"": ""82432a9e-946f-4b5f-be73-c44fef6fc996"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -389,23 +380,12 @@ public partial class @Player: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""320af8ab-94f1-4347-ac39-e6d787c5543a"",
-                    ""path"": ""<Keyboard>/p"",
+                    ""id"": ""281d3964-378a-4a2e-8f18-3cab0e7c8a7e"",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Test"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""916ad4db-2010-45f7-a97d-921bc3f7c191"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot1"",
+                    ""action"": ""Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -418,12 +398,11 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Muis = m_PlayerControls.FindAction("Muis", throwIfNotFound: true);
         m_PlayerControls_Shoot = m_PlayerControls.FindAction("Shoot", throwIfNotFound: true);
-        m_PlayerControls_Shoot1 = m_PlayerControls.FindAction("Shoot1", throwIfNotFound: true);
         m_PlayerControls_Aim = m_PlayerControls.FindAction("Aim", throwIfNotFound: true);
         m_PlayerControls_Rotate = m_PlayerControls.FindAction("Rotate", throwIfNotFound: true);
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControls_Rotate2 = m_PlayerControls.FindAction("Rotate2", throwIfNotFound: true);
-        m_PlayerControls_Test = m_PlayerControls.FindAction("Test", throwIfNotFound: true);
+        m_PlayerControls_Switch = m_PlayerControls.FindAction("Switch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -487,24 +466,22 @@ public partial class @Player: IInputActionCollection2, IDisposable
     private List<IPlayerControlsActions> m_PlayerControlsActionsCallbackInterfaces = new List<IPlayerControlsActions>();
     private readonly InputAction m_PlayerControls_Muis;
     private readonly InputAction m_PlayerControls_Shoot;
-    private readonly InputAction m_PlayerControls_Shoot1;
     private readonly InputAction m_PlayerControls_Aim;
     private readonly InputAction m_PlayerControls_Rotate;
     private readonly InputAction m_PlayerControls_Movement;
     private readonly InputAction m_PlayerControls_Rotate2;
-    private readonly InputAction m_PlayerControls_Test;
+    private readonly InputAction m_PlayerControls_Switch;
     public struct PlayerControlsActions
     {
         private @Player m_Wrapper;
         public PlayerControlsActions(@Player wrapper) { m_Wrapper = wrapper; }
         public InputAction @Muis => m_Wrapper.m_PlayerControls_Muis;
         public InputAction @Shoot => m_Wrapper.m_PlayerControls_Shoot;
-        public InputAction @Shoot1 => m_Wrapper.m_PlayerControls_Shoot1;
         public InputAction @Aim => m_Wrapper.m_PlayerControls_Aim;
         public InputAction @Rotate => m_Wrapper.m_PlayerControls_Rotate;
         public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
         public InputAction @Rotate2 => m_Wrapper.m_PlayerControls_Rotate2;
-        public InputAction @Test => m_Wrapper.m_PlayerControls_Test;
+        public InputAction @Switch => m_Wrapper.m_PlayerControls_Switch;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -520,9 +497,6 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
-            @Shoot1.started += instance.OnShoot1;
-            @Shoot1.performed += instance.OnShoot1;
-            @Shoot1.canceled += instance.OnShoot1;
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
@@ -535,9 +509,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Rotate2.started += instance.OnRotate2;
             @Rotate2.performed += instance.OnRotate2;
             @Rotate2.canceled += instance.OnRotate2;
-            @Test.started += instance.OnTest;
-            @Test.performed += instance.OnTest;
-            @Test.canceled += instance.OnTest;
+            @Switch.started += instance.OnSwitch;
+            @Switch.performed += instance.OnSwitch;
+            @Switch.canceled += instance.OnSwitch;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -548,9 +522,6 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
-            @Shoot1.started -= instance.OnShoot1;
-            @Shoot1.performed -= instance.OnShoot1;
-            @Shoot1.canceled -= instance.OnShoot1;
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
@@ -563,9 +534,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Rotate2.started -= instance.OnRotate2;
             @Rotate2.performed -= instance.OnRotate2;
             @Rotate2.canceled -= instance.OnRotate2;
-            @Test.started -= instance.OnTest;
-            @Test.performed -= instance.OnTest;
-            @Test.canceled -= instance.OnTest;
+            @Switch.started -= instance.OnSwitch;
+            @Switch.performed -= instance.OnSwitch;
+            @Switch.canceled -= instance.OnSwitch;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -587,11 +558,10 @@ public partial class @Player: IInputActionCollection2, IDisposable
     {
         void OnMuis(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
-        void OnShoot1(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnRotate2(InputAction.CallbackContext context);
-        void OnTest(InputAction.CallbackContext context);
+        void OnSwitch(InputAction.CallbackContext context);
     }
 }
