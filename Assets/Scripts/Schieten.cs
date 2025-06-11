@@ -28,7 +28,7 @@ public class Schieten : MonoBehaviour
     void OnShoot()
     {
         #region Basic Shooting
-        //var bullet = Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
+        //GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
         //bullet.GetComponent<Rigidbody>().velocity = spawnPoint.transform.forward * speed;
         #endregion
 

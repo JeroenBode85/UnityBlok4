@@ -446,6 +446,7 @@ GameObject:
   - component: {fileID: 800770357}
   - component: {fileID: 800770358}
   - component: {fileID: 800770359}
+  - component: {fileID: 800770360}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -617,6 +618,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: fbb5c07c-a473-4aa3-bea3-8741c746d649
     m_ActionName: PlayerControls/Rotate2[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 82432a9e-946f-4b5f-be73-c44fef6fc996
+    m_ActionName: PlayerControls/Switch[/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b1ec14b-f2e0-432f-aafe-510643034a5a
+    m_ActionName: GamePad/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b93080dc-1fa0-491a-b2b3-0a7defa6cb48
+    m_ActionName: GamePad/Shoot
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -656,7 +669,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800770348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 496ad260fb2fa6e46a4b355ef6497efd, type: 3}
   m_Name: 
@@ -668,6 +681,25 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4459513304196709030, guid: 5f36ae34753bcd04aa3bdd5af6ba3491, type: 3}
   spawnPoint: {fileID: 1487917698}
   canShoot: 0
+--- !u!114 &800770360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800770348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c57a74e34a528a84fae7877dffd86131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  speed: 5
+  bulletSpawnpoint: {fileID: 0}
+  bullet: {fileID: 0}
+  myScriptableBullets: []
+  bulletType: 0
 --- !u!1 &1040620885
 GameObject:
   m_ObjectHideFlags: 0

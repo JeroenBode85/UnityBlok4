@@ -43,8 +43,9 @@ public class Movement : MonoBehaviour
         // Rotatie toepassen om de Y-as
         rb.velocity = moveSpeed * moveDir.normalized;
 
-        transform.Rotate(Vector3.up * rotationInput * rotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up * rotationInput * rotationSpeed * Time.deltaTime);//rotationInput
 
         // Debug.Log(transform.forward);
     }
+    
 }

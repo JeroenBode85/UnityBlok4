@@ -390,6 +390,98 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""GamePad"",
+            ""id"": ""4d85fef2-7a05-405c-9fe9-8f54ddcc0c9f"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""2b1ec14b-f2e0-432f-aafe-510643034a5a"",
+                    ""expectedControlType"": ""Dpad"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""b93080dc-1fa0-491a-b2b3-0a7defa6cb48"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""53359407-41b9-4a50-985b-cd39e7ccad0a"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""d4c63cf6-e219-4123-b249-e87553f16732"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""a513a8f6-6376-4759-b566-5832f838d624"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""f446e0dc-0500-4f61-9e2f-89815e3fd8ce"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""931383ad-37d8-4f47-bacf-23a075b03bf3"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5bb7baf8-7a8e-428c-a9c1-54058ae8bfa2"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -403,6 +495,10 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControls_Rotate2 = m_PlayerControls.FindAction("Rotate2", throwIfNotFound: true);
         m_PlayerControls_Switch = m_PlayerControls.FindAction("Switch", throwIfNotFound: true);
+        // GamePad
+        m_GamePad = asset.FindActionMap("GamePad", throwIfNotFound: true);
+        m_GamePad_Movement = m_GamePad.FindAction("Movement", throwIfNotFound: true);
+        m_GamePad_Shoot = m_GamePad.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -554,6 +650,60 @@ public partial class @Player: IInputActionCollection2, IDisposable
         }
     }
     public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
+
+    // GamePad
+    private readonly InputActionMap m_GamePad;
+    private List<IGamePadActions> m_GamePadActionsCallbackInterfaces = new List<IGamePadActions>();
+    private readonly InputAction m_GamePad_Movement;
+    private readonly InputAction m_GamePad_Shoot;
+    public struct GamePadActions
+    {
+        private @Player m_Wrapper;
+        public GamePadActions(@Player wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_GamePad_Movement;
+        public InputAction @Shoot => m_Wrapper.m_GamePad_Shoot;
+        public InputActionMap Get() { return m_Wrapper.m_GamePad; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GamePadActions set) { return set.Get(); }
+        public void AddCallbacks(IGamePadActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GamePadActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GamePadActionsCallbackInterfaces.Add(instance);
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+        }
+
+        private void UnregisterCallbacks(IGamePadActions instance)
+        {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+        }
+
+        public void RemoveCallbacks(IGamePadActions instance)
+        {
+            if (m_Wrapper.m_GamePadActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGamePadActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GamePadActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GamePadActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GamePadActions @GamePad => new GamePadActions(this);
     public interface IPlayerControlsActions
     {
         void OnMuis(InputAction.CallbackContext context);
@@ -563,5 +713,10 @@ public partial class @Player: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnRotate2(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
+    }
+    public interface IGamePadActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }
